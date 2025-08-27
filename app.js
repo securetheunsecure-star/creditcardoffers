@@ -456,6 +456,52 @@
     renderResults(top);
   }
 
+   function populateMerchantDatalist() {
+  const datalist = document.getElementById("merchant-list");
+  datalist.innerHTML = "";
+
+  // Collect categories → merchants/synonyms mapping
+  const categoryMap = {};
+
+  // From cardsData merchants
+  for (const bank in window.cardsData) {
+    window.cardsData[bank].forEach(card => {
+      for (const category in card.benefits) {
+        if (!categoryMap[category]) categoryMap[category] = new Set();
+        const benefit = card.benefits[category];
+        if (benefit.merchants) {
+          benefit.merchants.forEach(m => {
+            categoryMap[category].add(m.name);
+            (m.aliases || []).forEach(alias => categoryMap[category].add(alias));
+          });
+        }
+      }
+    });
+  }
+
+  // From category synonyms
+  for (const category in categorySynonyms) {
+    if (!categoryMap[category]) categoryMap[category] = new Set();
+    categorySynonyms[category].forEach(syn => categoryMap[category].add(syn));
+  }
+
+  // Build grouped datalist
+  for (const category in categoryMap) {
+    const optgroup = document.createElement("optgroup");
+    optgroup.label = category.charAt(0).toUpperCase() + category.slice(1);
+
+    Array.from(categoryMap[category])
+      .sort()
+      .forEach(item => {
+        const option = document.createElement("option");
+        option.value = item;
+        optgroup.appendChild(option);
+      });
+
+    datalist.appendChild(optgroup);
+  }
+}
+   populateMerchantDatalist();
   // ---------- Render ----------
   function renderResults(rows) {
     if (!rows.length) {
