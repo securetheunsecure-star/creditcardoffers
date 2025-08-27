@@ -480,9 +480,9 @@
   }
 
   // From category synonyms
-  for (const category in categorySynonyms) {
+  for (const category in CATEGORY_SYNONYMS) {
     if (!categoryMap[category]) categoryMap[category] = new Set();
-    categorySynonyms[category].forEach(syn => categoryMap[category].add(syn));
+    CATEGORY_SYNONYMS[category].forEach(syn => categoryMap[category].add(syn));
   }
 
   // Build grouped datalist
