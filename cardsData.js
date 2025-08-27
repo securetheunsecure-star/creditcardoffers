@@ -1,4 +1,4 @@
-const cardsData = {
+const window.cardsData = {
   "DBS": [
     {
       "bank": "DBS",
