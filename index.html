@@ -3,169 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Best Card Offers – Singapore</title>
+  <title>Best Card Finder SG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* ========= Global Styles ========= */
     body {
-      font-family: "Segoe UI", Roboto, sans-serif;
+      font-family: 'Inter', sans-serif;
       margin: 0;
-      background: #f9fafb;
-      color: #333;
+      padding: 0;
+      background: linear-gradient(135deg, #3f2b96, #a8c0ff);
+      color: #222;
     }
     header {
-      background: #0052cc;
-      color: white;
-      padding: 1rem 2rem;
+      padding: 1rem;
       text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      letter-spacing: 0.5px;
+      color: white;
     }
     main {
+      max-width: 900px;
+      margin: 1rem auto;
+      background: #fff;
+      border-radius: 16px;
       padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
     }
     h2 {
-      margin-top: 2rem;
-      font-size: 1.3rem;
-      border-left: 4px solid #0052cc;
-      padding-left: 0.5rem;
+      margin-top: 0;
     }
-
-    /* ========= Input Section ========= */
-    .search-box {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
+    .section {
+      margin-bottom: 2rem;
     }
-    .search-box input {
-      flex: 1;
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    input, select, button {
+      width: 100%;
       padding: 0.75rem;
-      font-size: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
       border: 1px solid #ccc;
-      border-radius: 8px;
+      font-size: 1rem;
     }
-    .btn {
-      padding: 0.7rem 1.2rem;
-      font-size: 0.95rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-primary {
-      background: #0052cc;
+    button {
+      background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
     }
-    .btn-primary:hover {
-      background: #0041a8;
-    }
-    .btn-secondary {
-      background: #eee;
-    }
-    .btn-secondary:hover {
-      background: #ddd;
-    }
-
-    /* ========= Results ========= */
-    .results-section {
-      margin-top: 1rem;
+    button:hover {
+      background: linear-gradient(135deg, #5a67d8, #6b46c1);
     }
     .results-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 1rem;
+      margin-top: 1rem;
     }
-    .results-table th,
-    .results-table td {
-      border: 1px solid #ddd;
+    .results-table th, .results-table td {
       padding: 0.75rem;
       text-align: left;
-      font-size: 0.9rem;
+      border-bottom: 1px solid #eee;
     }
-    .results-table th {
-      background: #f3f6fa;
-    }
-    .saved-row {
-      background-color: #fff8e1;
+    .card-badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      margin-left: 0.5rem;
+      background: #ffd700;
+      color: #000;
       font-weight: bold;
     }
-
-    /* Mobile card layout */
-    .mobile-cards {
-      display: none;
-    }
-    .result-card {
-      background: white;
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-    .result-card h3 {
-      margin: 0 0 0.5rem;
-      font-size: 1rem;
-      color: #0052cc;
-    }
-    .saved-card {
-      border: 2px solid #ff9800;
-      background: #fff3e0;
-    }
-
-    /* ========= Badges ========= */
-    .badge {
-      display: inline-block;
-      margin-left: 6px;
-      padding: 2px 6px;
-      background: #ff9800;
-      color: white;
-      border-radius: 6px;
-      font-size: 0.75rem;
-    }
-
-    /* ========= Responsive ========= */
-    @media (max-width: 768px) {
-      .results-table {
-        display: none;
+    @media (max-width: 600px) {
+      main {
+        padding: 1rem;
       }
-      .mobile-cards {
-        display: block;
+      input, select, button {
+        font-size: 0.9rem;
       }
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>💳 Best Card Finder Singapore</h1>
+    <p>Find the best card offers for your spend</p>
+  </header>
+  <main>
+    <!-- Merchant Search -->
+    <div class="section">
+      <h2>Merchant / Category</h2>
+      <label for="merchant-input">Type a merchant or category</label>
+      <input list="merchant-list" id="merchant-input" placeholder="e.g., McDonald's, Groceries, Travel">
+      <datalist id="merchant-list"></datalist>
 
-<header>Best Card Offers in Singapore</header>
+      <label for="merchant-select">Or select from list</label>
+      <select id="merchant-select"></select>
 
-<main>
-  <!-- Merchant Search -->
-  <section class="search-box">
-    <input list="merchant-list" id="merchant-input" placeholder="Search merchant or category...">
-    <datalist id="merchant-list"></datalist>
-    <button class="btn btn-primary" id="search-btn">Fetch Best Card Offers</button>
-    <button class="btn btn-secondary" id="speak-btn">🎤 Speak</button>
-  </section>
+      <button id="search-btn">🎯 Fetch Best Card Offers</button>
+      <button id="speak-btn">🎤 Speak Merchant</button>
+    </div>
 
-  <!-- Results -->
-  <section class="results-section">
-    <h2>Suggested Cards</h2>
-    <div id="results"></div>
-  </section>
+    <!-- Results -->
+    <div class="section">
+      <h2>Top Suggestions</h2>
+      <table class="results-table" id="results-table">
+        <thead>
+          <tr>
+            <th>Card</th>
+            <th>Bank</th>
+            <th>Benefit</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
-  <!-- Manage Cards -->
-  <section class="results-section">
-    <h2>Manage My Cards</h2>
-    <select id="add-card-select"></select>
-    <button class="btn btn-primary" id="add-card-btn">Add Card</button>
-    <div id="saved-cards"></div>
-  </section>
-</main>
+    <!-- Manage Saved Cards -->
+    <div class="section">
+      <h2>My Saved Cards</h2>
+      <select id="add-card-select"></select>
+      <button id="add-card-btn">➕ Add Card</button>
+      <ul id="saved-cards"></ul>
+    </div>
+  </main>
 
-<script src="cardsData.js"></script>
-<script src="app.js"></script>
-
+  <!-- Load Data + App -->
+  <script src="cardsData.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
