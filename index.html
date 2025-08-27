@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Card Offers – Singapore</title>
+  <style>
+    /* ========= Global Styles ========= */
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #333;
+    }
+    header {
+      background: #0052cc;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    main {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.3rem;
+      border-left: 4px solid #0052cc;
+      padding-left: 0.5rem;
+    }
+
+    /* ========= Input Section ========= */
+    .search-box {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .search-box input {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .btn {
+      padding: 0.7rem 1.2rem;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-primary {
+      background: #0052cc;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #0041a8;
+    }
+    .btn-secondary {
+      background: #eee;
+    }
+    .btn-secondary:hover {
+      background: #ddd;
+    }
+
+    /* ========= Results ========= */
+    .results-section {
+      margin-top: 1rem;
+    }
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+    .results-table th,
+    .results-table td {
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    .results-table th {
+      background: #f3f6fa;
+    }
+    .saved-row {
+      background-color: #fff8e1;
+      font-weight: bold;
+    }
+
+    /* Mobile card layout */
+    .mobile-cards {
+      display: none;
+    }
+    .result-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .result-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+      color: #0052cc;
+    }
+    .saved-card {
+      border: 2px solid #ff9800;
+      background: #fff3e0;
+    }
+
+    /* ========= Badges ========= */
+    .badge {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 6px;
+      background: #ff9800;
+      color: white;
+      border-radius: 6px;
+      font-size: 0.75rem;
+    }
+
+    /* ========= Responsive ========= */
+    @media (max-width: 768px) {
+      .results-table {
+        display: none;
+      }
+      .mobile-cards {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>Best Card Offers in Singapore</header>
+
+<main>
+  <!-- Merchant Search -->
+  <section class="search-box">
+    <input list="merchant-list" id="merchant-input" placeholder="Search merchant or category...">
+    <datalist id="merchant-list"></datalist>
+    <button class="btn btn-primary" id="search-btn">Fetch Best Card Offers</button>
+    <button class="btn btn-secondary" id="speak-btn">🎤 Speak</button>
+  </section>
+
+  <!-- Results -->
+  <section class="results-section">
+    <h2>Suggested Cards</h2>
+    <div id="results"></div>
+  </section>
+
+  <!-- Manage Cards -->
+  <section class="results-section">
+    <h2>Manage My Cards</h2>
+    <select id="add-card-select"></select>
+    <button class="btn btn-primary" id="add-card-btn">Add Card</button>
+    <div id="saved-cards"></div>
+  </section>
+</main>
+
+<script src="cardsData.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
