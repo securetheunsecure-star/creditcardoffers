@@ -469,7 +469,7 @@
       rows.forEach(r => {
          const saved = savedCards.some(c => c.bank === r.bank && c.card_name === r.cardName);
          console.log(saved);
-         const cardName = saved ? `${r.card} <span class="saved-badge">SAVED</span>`: r.card;
+         const cardName = saved ? `${r.card} <span class="badge">SAVED</span>`: r.card;
         html += `<tr>
           <td>${cardName}</td>
           <td>${r.description}</td>
