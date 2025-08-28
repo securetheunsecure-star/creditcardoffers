@@ -547,6 +547,12 @@
     return html;
   }
 
+   document.getElementById("clear-merchant").addEventListener("click", () => {
+  const merchantInput = document.getElementById("merchant-input");
+  merchantInput.value = "";
+  merchantInput.focus();
+});
+   
   function escapeHtml(s) {
     return (s || '').replace(/[&<>"']/g, m => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
