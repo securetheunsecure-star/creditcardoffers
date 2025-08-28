@@ -368,9 +368,11 @@
         let match = false;
 
         // Merchant match
+      if (benefit.merchants){
         if (benefit.merchants.some(m => [m.name, ...(m.aliases || [])].map(x => x.toLowerCase()).includes(query))) {
           match = true;
         }
+      }
 
         // Category match
         if (category.toLowerCase().includes(query)) {
