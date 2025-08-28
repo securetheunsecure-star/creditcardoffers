@@ -5,131 +5,135 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Best Card Finder SG</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
+    <style>
     body {
-      font-family: 'Inter', sans-serif;
       margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #3f2b96, #a8c0ff);
-      color: #222;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f7fb;
+      color: #333;
     }
-    header {
-      padding: 1rem;
-      text-align: center;
-      color: white;
+    .container {
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      gap: 20px;
     }
-    main {
-      max-width: 900px;
-      margin: 1rem auto;
+    section {
       background: #fff;
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     }
     h2 {
       margin-top: 0;
+      font-size: 1.2rem;
+      color: #007bff;
     }
-    .section {
-      margin-bottom: 2rem;
+    .search-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
-    label {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border-radius: 10px;
+    .search-box input {
+      flex: 1;
+      min-width: 200px;
+      padding: 10px;
+      border-radius: 8px;
       border: 1px solid #ccc;
-      font-size: 1rem;
     }
-    button {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
+    .search-box button {
+      padding: 10px 15px;
       border: none;
+      border-radius: 8px;
+      background: #007bff;
+      color: white;
       cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
+      transition: 0.2s;
     }
-    button:hover {
-      background: linear-gradient(135deg, #5a67d8, #6b46c1);
+    .search-box button:hover {
+      background: #0056b3;
     }
-    .results-table {
+    #results table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1rem;
+      margin-top: 15px;
     }
-    .results-table th, .results-table td {
-      padding: 0.75rem;
+    #results th, #results td {
+      border: 1px solid #ddd;
+      padding: 8px;
       text-align: left;
-      border-bottom: 1px solid #eee;
     }
-    .card-badge {
-      display: inline-block;
-      padding: 0.2rem 0.5rem;
+    #results th {
+      background: #007bff;
+      color: white;
+    }
+    #saved-cards {
+      list-style: none;
+      padding: 0;
+    }
+    #saved-cards li {
+      background: #f9fafc;
+      padding: 10px;
       border-radius: 8px;
-      font-size: 0.8rem;
-      margin-left: 0.5rem;
-      background: #ffd700;
-      color: #000;
-      font-weight: bold;
+      margin: 5px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    @media (max-width: 600px) {
-      main {
-        padding: 1rem;
+    #saved-cards .badge {
+      background: #28a745;
+      color: white;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 8px;
+    }
+    #saved-cards button {
+      background: red;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+    @media (min-width: 768px) {
+      .container {
+        flex-direction: row;
+        align-items: flex-start;
       }
-      input, select, button {
-        font-size: 0.9rem;
+      #suggestions-panel {
+        flex: 2;
+      }
+      #user-cards-panel {
+        flex: 1;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>💳 Best Card Finder Singapore</h1>
-    <p>Find the best card offers for your spend</p>
-  </header>
-  <main>
-    <!-- Merchant Search -->
-    <div class="section">
-      <h2>Merchant / Category</h2>
-      <label for="merchant-input">Type a merchant or category</label>
-<input type="text" id="merchant-input" list="merchant-list" placeholder="Enter or select merchant/category...">
-<datalist id="merchant-list"></datalist>
+  <div class="container">
+    <!-- Suggestions Panel -->
+    <section id="suggestions-panel">
+      <h2>Best Card Suggestions</h2>
+      <div class="search-box">
+        <input type="text" id="merchant-input" list="merchant-list" placeholder="Enter or select merchant/category...">
+        <datalist id="merchant-list"></datalist>
+        <button id="search-btn">Fetch Best Card Offers</button>
+        <button id="voice-btn">🎤 Speak</button>
+      </div>
+      <div id="results"></div>
+    </section>
 
-
-      <button id="search-btn">🎯 Fetch Best Card Offers</button>
-      <button id="speak-btn">🎤 Speak Merchant</button>
-    </div>
-
-    <!-- Results -->
-    <div class="section">
-      <h2>Top Suggestions</h2>
-      <table class="results-table" id="results">
-        <thead>
-          <tr>
-            <th>Card</th>
-            <th>Bank</th>
-            <th>Benefit</th>
-            <th>Category</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <!-- Manage Saved Cards -->
-    <div class="section">
-      <h2>My Saved Cards</h2>
-      <select id="add-card-select"></select>
-      <button id="add-card-btn">➕ Add Card</button>
+    <!-- User Cards Panel -->
+    <section id="user-cards-panel">
+      <h2>Your Cards</h2>
+      <div class="card-actions">
+        <select id="available-cards"></select>
+        <button id="add-card-btn">➕ Add Card</button>
+      </div>
       <ul id="saved-cards"></ul>
-    </div>
-  </main>
+    </section>
+  </div>
 
-  <!-- Load Data + App -->
   <script src="cardsData.js"></script>
   <script src="app.js"></script>
 </body>
