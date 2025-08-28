@@ -361,8 +361,8 @@
 
   let allResults = [];
 
-  for (const bank in allCards) {
-    allCards[bank].forEach(card => {
+  for (const bank in window.cardsData) {
+    window.cardsData[bank].forEach(card => {
       for (const category in card.benefits) {
         const benefit = card.benefits[category];
         let match = false;
