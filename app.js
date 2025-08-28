@@ -504,15 +504,21 @@
    populateMerchantDatalist();
   // ---------- Render ----------
   function renderResults(rows) {
-    if (!rows.length) {
-      resultsDiv.innerHTML = `<p>No matching cards found. Try a broader category like “Dining”, “Groceries”, “Travel”, or an MCC code.</p>`;
-      return;
-    }
+      if (!results.length) {
+        resultsDiv.innerHTML = "<p>No matching card benefits found.</p>";
+        return;
+      }
 
-    const tableHTML = renderTable(rows);
-    const mobileHTML = renderMobileCards(rows);
-
-    resultsDiv.innerHTML = tableHTML + mobileHTML;
+      let html = `<table>
+        <tr><th>Card</th><th>Benefit</th></tr>`;
+      results.forEach(r => {
+        html += `<tr>
+          <td>${r.card} ${r.isSaved ? '<span class="badge">Saved</span>' : ''}</td>
+          <td>${r.description}</td>
+        </tr>`;
+      });
+      html += "</table>";
+      resultsDiv.innerHTML = html;
   }
 
   function renderTable(rows) {
