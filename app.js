@@ -468,7 +468,6 @@
         <tr><th>Card</th><th>Benefit</th></tr>`;
       rows.forEach(r => {
          const saved = savedCards.some(c => c.bank === r.bank && c.card_name === r.cardName);
-     users
          console.log(saved);
          const cardName = saved ? `${r.card} <span class="saved-badge">SAVED</span>`: r.card;
         html += `<tr>
