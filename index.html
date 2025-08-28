@@ -159,6 +159,31 @@
         flex: 1;
       }
     }
+
+    .merchant-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#merchant-input {
+  flex: 1;
+  padding-right: 2rem; /* space for clear button */
+}
+
+.clear-btn {
+  position: absolute;
+  right: 5px;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.clear-btn:hover {
+  color: #000;
+}
   </style>
 </head>
 <body>
@@ -170,6 +195,7 @@
       <div class="search-box">
         <input type="text" id="merchant-input" list="merchant-list" placeholder="Enter or select merchant/category...">
         <datalist id="merchant-list"></datalist>
+            <button id="clear-merchant" class="clear-btn" title="Clear">✖</button>
         <button class="btn btn-primary" id="search-btn">Fetch Best Card Offers</button>
         <button class="btn btn-secondary" id="speak-btn">🎤 Speak</button>
       </div>
