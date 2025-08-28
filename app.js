@@ -381,9 +381,10 @@
 
         if (match) {
           const label = `${bank} - ${card.card_name}`;
+           const cName = `${card.card_name}`;
           allResults.push({
             card: label,
-            card_name,
+            cardName: cName,
             bank,
             description: benefit.description || `Benefit in ${category}`,
             category,
@@ -466,9 +467,9 @@
       let html = `<table>
         <tr><th>Card</th><th>Benefit</th></tr>`;
       rows.forEach(r => {
-         const saved = savedCards.includes(r.bank , r.card_name);
+         const saved = savedCards.includes(r.bank , r.cardName);
          console.log(saved);
-         const cardName = saved ? `${r.card_name} <span class="saved-badge">SAVED</span>`: r.card_name;
+         const cardName = saved ? `${r.card} <span class="saved-badge">SAVED</span>`: r.card;
         html += `<tr>
           <td>${cardName}</td>
           <td>${r.description}</td>
