@@ -356,104 +356,56 @@
   });
 
   function findBestCards() {
-    const qRaw = merchantInput.value;
-    const query = normalize(qRaw);
-    if (!query) {
-      resultsDiv.innerHTML = `<p>Please enter a merchant or category.</p>`;
-      return;
-    }
+  const query = merchantInput.value.trim().toLowerCase();
+  if (!query) return;
 
-    const mccQuery = parseMccQuery(query);
-    const categoryCandidates = expandToCategories(query); // array of category keys (as in benefits)
+  let allResults = [];
 
-    const results = [];
+  for (const bank in allCards) {
+    allCards[bank].forEach(card => {
+      for (const category in card.benefits) {
+        const benefit = card.benefits[category];
+        let match = false;
 
-    for (const bank in cardsData) {
-      if (!isArray(cardsData[bank])) continue;
-
-      cardsData[bank].forEach(card => {
-        if (!card?.benefits) return;
-
-        let totalScore = 0;
-        const matchedBenefits = [];
-
-        for (const cat in card.benefits) {
-          const b = card.benefits[cat];
-          let matchScore = 0;
-          let matchedMerchants = [];
-
-          // Merchant / alias match
-          if (isArray(b.merchants)) {
-            b.merchants.forEach(m => {
-              const names = [m.name, ...(m.aliases || [])].map(normalize).filter(Boolean);
-              // exact merchant name match heavier
-              if (names.includes(query)) {
-                matchScore += 120;
-                matchedMerchants.push(m.name);
-              } else if (names.some(n => n.includes(query))) {
-                matchScore += 95;
-                matchedMerchants.push(m.name);
-              }
-              // MCC at merchant level
-              if (mccQuery && isArray(m.mcc)) {
-                if (m.mcc.map(String).includes(mccQuery)) {
-                  matchScore += 100;
-                  matchedMerchants.push(m.name);
-                }
-              }
-            });
-          }
-
-          // Category match (via synonyms or direct)
-          if (categoryCandidates.includes(cat)) {
-            matchScore += 70;
-          } else if (normalize(cat).includes(query)) {
-            matchScore += 60;
-          }
-
-          // MCC at benefit-level
-          if (mccQuery && isArray(b.mcc)) {
-            if (b.mcc.map(String).includes(mccQuery)) {
-              matchScore += 100;
-            }
-          }
-
-          // Strength of benefit (cashback %, mpd, points)
-          const strength = extractBenefitStrength(b.description || '');
-          matchScore += strength;
-
-          if (matchScore > 0) {
-            matchedBenefits.push({
-              category: cat,
-              description: b.description || '',
-              matchedMerchants: Array.from(new Set(matchedMerchants)),
-              matchScore
-            });
-            totalScore += matchScore;
-          }
+        // Merchant match
+        if (benefit.merchants.some(m => 
+          [m.name, ...(m.aliases || [])].map(x => x.toLowerCase()).includes(query)
+        )) {
+          match = true;
         }
 
-        if (totalScore > 0) {
-          const isSaved = savedCards.some(sc => sc.bank === bank && sc.card_name === card.card_name);
-          results.push({
+        // Category match
+        if (category.toLowerCase().includes(query)) {
+          match = true;
+        }
+
+        if (match) {
+          const label = `${bank} - ${card.card_name}`;
+          allResults.push({
+            card: label,
             bank,
-            card: card.card_name,
-            score: totalScore + (isSaved ? 10000 : 0), // strong priority to saved cards
-            rawScore: totalScore,
-            isSaved,
-            benefits: matchedBenefits
+            description: benefit.description || `Benefit in ${category}`,
+            category,
+            isSaved: savedCards.includes(label),
+            // simple score metric, can expand with miles/%
+            score: benefit.rewards || 1 
           });
         }
-      });
-    }
+      }
+    });
+  }
 
-    // Sort saved first via big bonus already added; tie-break by rawScore
-    results.sort((a, b) => b.score - a.score || b.rawScore - a.rawScore);
+  // Rank by score (desc)
+  allResults.sort((a, b) => b.score - a.score);
 
-    // Filter to top 5 relevant
-    const top = results.slice(0, 5);
-    console.log(top);
-    renderResults(top);
+  // Separate saved vs not saved
+  const savedResults = allResults.filter(r => r.isSaved);
+  const otherResults = allResults.filter(r => !r.isSaved);
+
+  // Combine with saved first
+  const finalResults = [...savedResults, ...otherResults].slice(0, 5);
+    console.log(finalResults);
+    renderResults(finalResults);
   }
 
    function populateMerchantDatalist() {
