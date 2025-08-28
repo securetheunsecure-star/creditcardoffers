@@ -452,7 +452,7 @@
 
     // Filter to top 5 relevant
     const top = results.slice(0, 5);
-
+    console.log(top);
     renderResults(top);
   }
 
@@ -504,6 +504,8 @@
    populateMerchantDatalist();
   // ---------- Render ----------
   function renderResults(rows) {
+              console.log(rows);
+
       if (!results.length) {
         resultsDiv.innerHTML = "<p>No matching card benefits found.</p>";
         return;
@@ -519,6 +521,8 @@
       });
       html += "</table>";
       resultsDiv.innerHTML = html;
+         console.log(html);
+
   }
 
   function renderTable(rows) {
