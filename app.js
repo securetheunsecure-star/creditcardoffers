@@ -506,14 +506,14 @@
   function renderResults(rows) {
               console.log(rows);
 
-      if (!results.length) {
+      if (!rows.length) {
         resultsDiv.innerHTML = "<p>No matching card benefits found.</p>";
         return;
       }
 
       let html = `<table>
         <tr><th>Card</th><th>Benefit</th></tr>`;
-      results.forEach(r => {
+      rows.forEach(r => {
         html += `<tr>
           <td>${r.card} ${r.isSaved ? '<span class="badge">Saved</span>' : ''}</td>
           <td>${r.description}</td>
