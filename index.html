@@ -3,98 +3,150 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Best Card Finder SG</title>
+  <title>Singapore Credit Card Optimizer</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
+  <style>
+    /* ========== GLOBAL ========== */
     body {
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #f4f7fb;
+      font-family: "Inter", Arial, sans-serif;
+      background: #f5f7fa;
       color: #333;
+    }
+    header {
+      background: linear-gradient(90deg, #0052cc, #007bff);
+      color: white;
+      padding: 1.2rem 2rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
     .container {
       display: flex;
       flex-direction: column;
-      padding: 15px;
+      padding: 20px;
       gap: 20px;
+      max-width: 1200px;
+      margin: auto;
     }
     section {
       background: #fff;
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      flex: 1;
     }
     h2 {
       margin-top: 0;
-      font-size: 1.2rem;
-      color: #007bff;
+      font-size: 1.3rem;
+      color: #0052cc;
+      font-weight: 600;
+      margin-bottom: 1rem;
     }
+
+    /* ========== SEARCH ========== */
     .search-box {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      margin-bottom: 15px;
     }
     .search-box input {
       flex: 1;
-      min-width: 200px;
-      padding: 10px;
-      border-radius: 8px;
+      min-width: 220px;
+      padding: 12px;
+      border-radius: 10px;
       border: 1px solid #ccc;
+      font-size: 1rem;
     }
-    .search-box button {
-      padding: 10px 15px;
+    .btn {
+      padding: 12px 18px;
       border: none;
-      border-radius: 8px;
-      background: #007bff;
-      color: white;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: 0.2s;
+      transition: all 0.2s ease-in-out;
     }
-    .search-box button:hover {
-      background: #0056b3;
+    .btn-primary {
+      background: linear-gradient(90deg, #007bff, #0052cc);
+      color: white;
     }
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #0052cc, #003d99);
+    }
+    .btn-secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
+    .btn-secondary:hover {
+      background: #e2e2e2;
+    }
+
+    /* ========== RESULTS ========== */
     #results table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 15px;
+      margin-top: 10px;
+      border-radius: 12px;
+      overflow: hidden;
     }
     #results th, #results td {
-      border: 1px solid #ddd;
-      padding: 8px;
+      padding: 12px;
       text-align: left;
+      font-size: 0.95rem;
     }
     #results th {
       background: #007bff;
       color: white;
     }
+    #results tr:nth-child(even) {
+      background: #f9fbfd;
+    }
+    #results tr:hover {
+      background: #eef5ff;
+    }
+    .badge {
+      background: #28a745;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      margin-left: 5px;
+    }
+
+    /* ========== SAVED CARDS ========== */
     #saved-cards {
       list-style: none;
       padding: 0;
+      margin: 0;
     }
     #saved-cards li {
       background: #f9fafc;
-      padding: 10px;
-      border-radius: 8px;
-      margin: 5px 0;
+      padding: 12px;
+      border-radius: 10px;
+      margin: 6px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-    #saved-cards .badge {
-      background: #28a745;
-      color: white;
-      font-size: 12px;
-      padding: 3px 8px;
-      border-radius: 8px;
+      font-size: 0.95rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     #saved-cards button {
-      background: red;
+      background: #e74c3c;
       border: none;
       color: white;
-      border-radius: 6px;
-      padding: 4px 8px;
+      border-radius: 8px;
+      padding: 6px 10px;
       cursor: pointer;
+      font-size: 0.8rem;
     }
+    #saved-cards button:hover {
+      background: #c0392b;
+    }
+
+    /* ========== RESPONSIVE ========== */
     @media (min-width: 768px) {
       .container {
         flex-direction: row;
@@ -110,6 +162,7 @@
   </style>
 </head>
 <body>
+  <header>💳 Singapore Credit Card Optimizer</header>
   <div class="container">
     <!-- Suggestions Panel -->
     <section id="suggestions-panel">
@@ -117,8 +170,8 @@
       <div class="search-box">
         <input type="text" id="merchant-input" list="merchant-list" placeholder="Enter or select merchant/category...">
         <datalist id="merchant-list"></datalist>
-        <button id="search-btn">Fetch Best Card Offers</button>
-        <button id="voice-btn">🎤 Speak</button>
+        <button class="btn btn-primary" id="search-btn">Fetch Best Card Offers</button>
+        <button class="btn btn-secondary" id="voice-btn">🎤 Speak</button>
       </div>
       <div id="results"></div>
     </section>
@@ -128,7 +181,7 @@
       <h2>Your Cards</h2>
       <div class="card-actions">
         <select id="available-cards"></select>
-        <button id="add-card-btn">➕ Add Card</button>
+        <button class="btn btn-primary" id="add-card-btn">➕ Add Card</button>
       </div>
       <ul id="saved-cards"></ul>
     </section>
