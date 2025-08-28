@@ -467,7 +467,7 @@
       let html = `<table>
         <tr><th>Card</th><th>Benefit</th></tr>`;
       rows.forEach(r => {
-         const saved = savedCards.includes(r.bank , r.cardName);
+         const saved = savedCards.includes(r.cardName);
          console.log(saved);
          const cardName = saved ? `${r.card} <span class="saved-badge">SAVED</span>`: r.card;
         html += `<tr>
