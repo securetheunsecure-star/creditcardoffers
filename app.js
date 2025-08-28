@@ -383,10 +383,10 @@
           const label = `${bank} - ${card.card_name}`;
           allResults.push({
             card: label,
+            card_name,
             bank,
             description: benefit.description || `Benefit in ${category}`,
             category,
-            isSaved: savedCards.includes(${card.card_name}),
             // simple score metric, can expand with miles/%
             score: benefit.rewards || 1 
           });
@@ -466,8 +466,11 @@
       let html = `<table>
         <tr><th>Card</th><th>Benefit</th></tr>`;
       rows.forEach(r => {
+         const saved = savedCards.includes(r.bank , r.card_name);
+         console.log(saved);
+         const cardName = saved ? `${r.card_name} <span class="saved-badge">SAVED</span>`: r.card_name;
         html += `<tr>
-          <td>${r.card} ${r.isSaved ? '<span class="badge">Saved</span>' : ''}</td>
+          <td>${cardName}</td>
           <td>${r.description}</td>
         </tr>`;
       });
