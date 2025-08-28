@@ -386,7 +386,7 @@
             bank,
             description: benefit.description || `Benefit in ${category}`,
             category,
-            isSaved: savedCards.includes(label),
+            isSaved: savedCards.includes(${card.card_name}),
             // simple score metric, can expand with miles/%
             score: benefit.rewards || 1 
           });
